@@ -13,7 +13,18 @@
         <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
             <h2 class="text-2xl font-semibold mb-6">Admin Login</h2>
 
+            @if ($errors->any())
+                <div class="text-red-500">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('adminlogin') }}" method="post">
+                @csrf
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
                     <input type="email" id="email" name="email" class="w-full p-2 border rounded-md">

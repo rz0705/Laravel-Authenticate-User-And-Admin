@@ -31,6 +31,8 @@ Route::controller(UsersController::class)->group(function () {
         Route::get('registration', [UsersController::class, 'adminregistration'])->name('adminregistration');
         Route::post('registration', [UsersController::class, 'adminregister'])->name('adminregister');
         Route::get('login', [UsersController::class, 'adminlogin'])->name('adminlogin');
+        Route::post('login', [UsersController::class, 'adminlogincheck'])->name('adminlogincheck');
+        Route::get('dashboard', [UsersController::class, 'admindashboard'])->name('admindashboard');
     });
 
     // Route::prefix('customer')->group(function () {

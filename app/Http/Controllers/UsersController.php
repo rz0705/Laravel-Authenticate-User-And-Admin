@@ -45,22 +45,39 @@ class UsersController extends Controller
         return view('customer.customerlogin');
     }
 
-    function customerlogincheck(Request $request){
+    // function customerlogincheck(Request $request){
+    //     $email = $request->email;
+    //     $password = $request->password;
+
+    //     $emailchecker = User::where("email", $email)->first();
+    //     // dd($emailchecker->password);
+    //     if ($emailchecker && Hash::check($password, $emailchecker->password)){
+    //         return redirect('/customer/dashboard');
+    //     }
+    //     return view('customer.customerlogin');
+    // }
+
+    function customerlogincheck(Request $request) {
         $email = $request->email;
-        // dd($email);
         $password = $request->password;
-        // dd($password);
-
-        $emailchecker = User::where("email", $email)->first();
-        // dd($emailchecker->password);
-        if ($emailchecker && Hash::check($password, $emailchecker->password)){
-            return redirect('/customer/dashboard');
+    
+        $user = User::where("email", $email)->first();
+    
+        if ($user && Hash::check($password, $user->password)) {
+            // Check the user's role
+            if ($user->role === 'customer') {
+                return redirect('/customer/dashboard');
+            } elseif ($user->role === 'admin') {
+                echo "not allowed!";
+            }
+            else{
+                echo "data not found!";
+            }
         }
+        
+    
+        // If email or password doesn't match, return to the login view
         return view('customer.customerlogin');
-    }
-
-    function customerdashboard() {
-        return view('customer.customerdashboard');
     }
 
     function adminregistration() {
@@ -69,5 +86,37 @@ class UsersController extends Controller
 
     function adminlogin() {
         return view('admin.adminlogin');
+    }
+
+    function adminlogincheck(Request $request) {
+        $email = $request->email;
+        $password = $request->password;
+    
+        $user = User::where("email", $email)->first();
+        // dd($user);
+    
+        if ($user && Hash::check($password, $user->password)) {
+            // Check the user's role
+            if ($user->role === 'admin') {
+                return redirect('/admin/dashboard');
+            } elseif ($user->role === 'customer') {
+                echo "not allowed!";
+            }
+        } else{
+            echo "data not found!";
+
+        }
+        
+    
+        // If email or password doesn't match, return to the login view
+        return view('admin.adminlogin');
+    }
+
+    function customerdashboard() {
+        return view('customer.customerdashboard');
+    }
+
+    function admindashboard() {
+        return view('admin.admindashboard');
     }
 }
