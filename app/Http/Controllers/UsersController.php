@@ -10,6 +10,13 @@ class UsersController extends Controller
 {
     public function customerregister(Request $request)
     {
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'confirm_password' => 'required|min:6|confirmed',
+        ]);
+
         // Create a new user
         User::create([
             'username' => $request->username,
@@ -24,6 +31,12 @@ class UsersController extends Controller
 
     public function adminregister(Request $request)
     {
+        $request->validate([
+            'adminname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'confirm_password' => 'required|min:6|confirmed',
+        ]);
 
         // Create a new user
         User::create([
@@ -31,17 +44,19 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'admin', // Default role for customer registration
-        ]); 
+        ]);
 
         // Redirect to a success page or wherever you want
         return redirect('/admin/registration');
     }
 
-    function customerregistration() {
+    function customerregistration()
+    {
         return view('customer.customerregistration');
     }
 
-    function customerlogin() {
+    function customerlogin()
+    {
         return view('customer.customerlogin');
     }
 
@@ -57,44 +72,58 @@ class UsersController extends Controller
     //     return view('customer.customerlogin');
     // }
 
-    function customerlogincheck(Request $request) {
+    function customerlogincheck(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
         $email = $request->email;
         $password = $request->password;
-    
+
         $user = User::where("email", $email)->first();
-    
+
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'customer') {
                 return redirect('/customer/dashboard');
             } elseif ($user->role === 'admin') {
-                echo "not allowed!";
+                echo "<span style=\"color:red;\">not allowed!</span>";
             }
-            else{
-                echo "data not found!";
-            }
+        } else {
+            echo "<span style=\"color:red;\">data not found!</span>";
         }
-        
-    
+
+        // session()->flash('error','data not found!');
         // If email or password doesn't match, return to the login view
         return view('customer.customerlogin');
+        // return redirect()->back()->withInput();
     }
 
-    function adminregistration() {
+    function adminregistration()
+    {
         return view('admin.adminregistration');
     }
 
-    function adminlogin() {
+    function adminlogin()
+    {
         return view('admin.adminlogin');
     }
 
-    function adminlogincheck(Request $request) {
+    function adminlogincheck(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
         $email = $request->email;
         $password = $request->password;
-    
+
         $user = User::where("email", $email)->first();
         // dd($user);
-    
+
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'admin') {
@@ -102,21 +131,22 @@ class UsersController extends Controller
             } elseif ($user->role === 'customer') {
                 echo "not allowed!";
             }
-        } else{
-            echo "data not found!";
-
+        } else {
+            echo "<span style=\"color:red;\">data not found!</span>";
         }
-        
-    
+
         // If email or password doesn't match, return to the login view
         return view('admin.adminlogin');
+        // return redirect()->back()->withInput();
     }
 
-    function customerdashboard() {
+    function customerdashboard()
+    {
         return view('customer.customerdashboard');
     }
 
-    function admindashboard() {
+    function admindashboard()
+    {
         return view('admin.admindashboard');
     }
 }
