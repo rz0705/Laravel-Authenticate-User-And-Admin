@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.login')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Admin Login</title>
-</head>
+@section('title', 'Admin Login')
 
-<body class="bg-gray-100">
-    <div class="container mx-auto mt-8">
-        <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-            <h2 class="text-2xl font-semibold mb-6">Admin Login</h2>
+@section('content')
+    <h2 class="text-2xl font-semibold mb-6">Admin Login</h2>
 
-            {{-- @if ($errors->any())
+    {{-- @if ($errors->any())
                 <div class="text-red-500">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -23,30 +15,27 @@
                 </div>
             @endif --}}
 
-            <form action="{{ route('adminlogin') }}" method="post">
-                @csrf
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full p-2 border rounded-md">
-                    @error('email')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-                    <input type="password" id="password" name="password" class="w-full p-2 border rounded-md">
-                    @error('password')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="flex items-center">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Login</button>
-                </div>
-            </form>
+    <form action="{{ route('adminlogin') }}" method="post">
+        @csrf
+        <div class="mb-4">
+            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+            <input type="text" id="email" name="email" value="{{ old('email') }}"
+                class="w-full p-2 border rounded-md">
+            @error('email')
+                <p class="text-red-500 text-xs">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
-</body>
 
-</html>
+        <div class="mb-4">
+            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+            <input type="password" id="password" name="password" class="w-full p-2 border rounded-md">
+            @error('password')
+                <p class="text-red-500 text-xs">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="flex items-center">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Login</button>
+        </div>
+    </form>
+@endsection

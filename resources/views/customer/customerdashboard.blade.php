@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.dashboard')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer Dashboard</title>
-    <!-- Include the Tailwind CSS stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+@section('title', 'Customer Dashboard')
 
-<body class="bg-gray-200">
-    <!-- Navigation bar -->
-    <nav class="bg-gray-800 p-4 text-white">
-        <div class="flex justify-between items-center">
-            <span class="text-lg font-bold">Customer Dashboard</span>
+@section('dashboard_title', 'Customer Dashboard')
 
-            <!-- Logout button -->
-            <button class="hover:text-red-500">Logout</button>
-        </div>
-    </nav>
+@section('logout_button', 'Logout')
 
-    <div class="container mx-auto p-4">
-        <!-- Content goes here -->
-        <p>Welcome Customer</p>
-    </div>
-
-</body>
-
-</html>
+@section('content')
+    <p>Welcome Customer</p>
+    <!-- Additional content for the customer dashboard goes here -->
+    <!-- ... -->
+@endsection

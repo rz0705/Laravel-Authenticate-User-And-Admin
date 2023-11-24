@@ -11,7 +11,7 @@ class UsersController extends Controller
     public function customerregister(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
+            'customername' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'confirm_password' => 'required|min:6|confirmed',
@@ -19,7 +19,7 @@ class UsersController extends Controller
 
         // Create a new user
         User::create([
-            'username' => $request->username,
+            'username' => $request->customername,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'customer', // Default role for customer registration
@@ -38,7 +38,7 @@ class UsersController extends Controller
             'confirm_password' => 'required|min:6|confirmed',
         ]);
 
-        // Create a new user
+        // Create a new admin
         User::create([
             'username' => $request->adminname,
             'email' => $request->email,
