@@ -13,8 +13,8 @@ class UsersController extends Controller
         $request->validate([
             'customername' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-            'confirm_password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8|same:password',
         ]);
 
         // Create a new user
@@ -31,11 +31,12 @@ class UsersController extends Controller
 
     public function adminregister(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'adminname' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-            'confirm_password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8|same:password',
         ]);
 
         // Create a new admin
@@ -43,7 +44,7 @@ class UsersController extends Controller
             'username' => $request->adminname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 'admin', // Default role for customer registration
+            'role' => 'admin', // Default role for admin registration
         ]);
 
         // Redirect to a success page or wherever you want
@@ -76,7 +77,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
         ]);
 
         $email = $request->email;
@@ -115,7 +116,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
         ]);
 
         $email = $request->email;

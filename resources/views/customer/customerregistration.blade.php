@@ -3,6 +3,16 @@
 @section('title', 'Customer Registration')
 
 @section('content')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default form submission
+                    document.getElementById('registerButton').click(); // Trigger the button click
+                }
+            });
+        });
+    </script>
     <h2 class="text-2xl font-semibold mb-6">Customer Registration</h2>
 
     {{-- @if ($errors->any())
@@ -45,14 +55,14 @@
 
         <div class="mb-6">
             <label for="cpassword" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password:</label>
-            <input type="password" id="cpassword" name="cpassword" class="w-full p-2 border rounded-md">
+            <input type="password" id="cpassword" name="confirm_password" class="w-full p-2 border rounded-md">
             @error('confirm_password')
                 <p class="text-red-500 text-xs">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="flex items-center">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
+            <button type="submit" id="registerButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
         </div>
     </form>
 @endsection

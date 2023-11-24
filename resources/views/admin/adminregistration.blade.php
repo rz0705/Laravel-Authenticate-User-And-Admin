@@ -3,6 +3,16 @@
 @section('title', 'Admin Registration')
 
 @section('content')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default form submission
+                    document.getElementById('registerButton').click(); // Trigger the button click
+                }
+            });
+        });
+    </script>
     <h2 class="text-2xl font-semibold mb-6">Admin Registration</h2>
 
     {{-- @if ($errors->any())
@@ -53,7 +63,7 @@
         </div>
 
         <div class="flex items-center">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
+            <button type="submit" id="registerButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
         </div>
     </form>
 @endsection
