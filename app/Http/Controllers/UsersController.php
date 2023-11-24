@@ -89,10 +89,10 @@ class UsersController extends Controller
             if ($user->role === 'customer') {
                 return redirect('/customer/dashboard');
             } elseif ($user->role === 'admin') {
-                echo "<span style=\"color:red;\">not allowed!</span>";
+                echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
             }
         } else {
-            echo "<span style=\"color:red;\">data not found!</span>";
+            echo "<span style=\"color:red;padding-left:20px\">data not found!</span>";
         }
 
         // session()->flash('error','data not found!');
@@ -129,10 +129,10 @@ class UsersController extends Controller
             if ($user->role === 'admin') {
                 return redirect('/admin/dashboard');
             } elseif ($user->role === 'customer') {
-                echo "not allowed!";
+                echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
             }
         } else {
-            echo "<span style=\"color:red;\">data not found!</span>";
+            echo "<span style=\"color:red;padding-left:20px\">data not found!</span>";
         }
 
         // If email or password doesn't match, return to the login view
