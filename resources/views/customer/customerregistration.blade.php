@@ -15,16 +15,6 @@
     </script>
     <h2 class="text-2xl font-semibold mb-6">Customer Registration</h2>
 
-    {{-- @if ($errors->any())
-            <div class="mb-4">
-                <ul class="text-red-500">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif --}}
-
     <form action="{{ route('customerregister') }}" method="post">
         @csrf
         <div class="mb-4">

@@ -43,16 +43,6 @@
     </script>
     <h2 class="text-2xl font-semibold mb-6">Admin Login</h2>
 
-    {{-- @if ($errors->any())
-                <div class="text-red-500">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif --}}
-
     <form action="{{ route('adminlogin') }}" method="post">
         @csrf
         <div class="mb-4">

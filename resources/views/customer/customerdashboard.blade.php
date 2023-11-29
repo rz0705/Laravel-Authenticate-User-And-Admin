@@ -1,18 +1,17 @@
 @extends('layouts.dashboard')
+@extends('layouts.customernavbar')
 
 @section('title', 'Customer Dashboard')
 
 @if (Session('success'))
-<div id="customer-register-message"
-    class="p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-    <span class="font-medium">Customer LoggedIn Successfully!!</span><a onclick = "loginsuccess()" href=""
-        id="dismiss" class="absolute top-0 right-0 px-3 py-1 cursor-pointer pt-2 text-xl">x</a>
-</div>
+    <div id="customer-register-message"
+        class="p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <span class="font-medium">Customer LoggedIn Successfully!!</span><a onclick = "loginsuccess()" href=""
+            id="dismiss" class="absolute top-0 right-0 px-3 py-1 cursor-pointer pt-2 text-xl">x</a>
+    </div>
 @endif
 
 @section('dashboard_title', 'Customer Dashboard')
-
-@section('logout_button', 'Logout')
 
 @section('content')
     <script>
@@ -37,7 +36,11 @@
         }
     </script>
 
-    <p>Welcome Customer</p>
+    @php
+        $user = session('user');
+    @endphp
+
+    <h1>Welcome, {{ $user->username }}</h1>
     <!-- Additional content for the customer dashboard goes here -->
     <!-- ... -->
 @endsection

@@ -18,9 +18,6 @@
             id="dismiss" class="absolute top-0 right-0 px-3 py-1 cursor-pointer pt-2 text-xl">x</a>
     </div>
 @endif
-{{-- <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-    <span class="font-medium">Success alert!</span> Change a few things up and try submitting again.
-  </div> --}}
 
 @section('content')
     <script>
@@ -50,7 +47,7 @@
         @csrf
         <div class="mb-4">
             <label for="email"
-                class="@error('email') is-invalid @enderror block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
             <input type="text" id="email" name="email" value="{{ old('email') }}"
                 class="w-full p-2 border rounded-md">
             @error('email')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -62,17 +63,12 @@ class UsersController extends Controller
         return view('customer.customerlogin');
     }
 
-    // function customerlogincheck(Request $request){
-    //     $email = $request->email;
-    //     $password = $request->password;
-
-    //     $emailchecker = User::where("email", $email)->first();
-    //     // dd($emailchecker->password);
-    //     if ($emailchecker && Hash::check($password, $emailchecker->password)){
-    //         return redirect('/customer/dashboard');
-    //     }
-    //     return view('customer.customerlogin');
-    // }
+    function customerlogout()
+    {
+        // Auth::logout();
+        session()->forget('user');
+        return redirect('/customer/login')->with('success', 'Logout successful!');
+    }
 
     function customerlogincheck(Request $request)
     {
@@ -81,26 +77,21 @@ class UsersController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $email = $request->email;
-        $password = $request->password;
-
-        $user = User::where("email", $email)->first();
-
-        if ($user && Hash::check($password, $user->password)) {
-            // Check the user's role
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            $user = Auth::user();
             if ($user->role === 'customer') {
-                return redirect('/customer/dashboard')->with('success', 'Login successfull!');
+                // Store user information in the session
+                $request->session()->put('user', $user);
+                return redirect('/customer/dashboard')->with('success', 'Login successful!');
             } elseif ($user->role === 'admin') {
+                Auth::logout(); // Log out admin users
                 return redirect()->back()->with('warning', 'Not Allowed!');
             }
         } else {
-            return redirect()->back()->with('warning', 'Data not found!');
+            return redirect()->back()->with('warning', 'Invalid credentials!');
         }
-
-        // session()->flash('error','data not found!');
-        // If email or password doesn't match, return to the login view
-        return view('customer.customerlogin');
-        // return redirect()->back()->withInput();
     }
 
     function adminregistration()
@@ -111,6 +102,13 @@ class UsersController extends Controller
     function adminlogin()
     {
         return view('admin.adminlogin');
+    }
+
+    function adminlogout()
+    {
+        Auth::logout();
+        session()->forget('admin');
+        return redirect('/admin/login')->with('success', 'Logout successful!');
     }
 
     function adminlogincheck(Request $request)
@@ -129,6 +127,8 @@ class UsersController extends Controller
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'admin') {
+                // Store user information in the session
+                $request->session()->put('admin', $user);
                 return redirect('/admin/dashboard')->with('success', 'Login successfull!');
             } elseif ($user->role === 'customer') {
                 // echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";

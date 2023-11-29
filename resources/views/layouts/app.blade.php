@@ -8,15 +8,11 @@
     <link href="/css/app.css" rel="stylesheet">
 </head>
 <body>
-
-
     <div id="app">
         @include('flash-message')
 
         @yield('content')
     </div>
-
-
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>

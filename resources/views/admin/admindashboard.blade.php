@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@extends('layouts.adminnavbar')
 
 @section('title', 'Admin Dashboard')
 
@@ -15,8 +16,33 @@
 @section('logout_button', 'Logout')
 
 @section('content')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the default form submission
+                document.getElementById('loginButton').click(); // Trigger the button click
+            }
+        });
+    });
 
-    <p>Welcome Admin</p>
-    <!-- Additional content for the admin dashboard goes here -->
-    <!-- ... -->
+    function loginsuccess() {
+        // Get the reference to the div
+        var divToRemove = document.getElementById("admin-register-message");
+
+        // Check if the div exists before trying to remove it
+        if (divToRemove) {
+            // Remove the div
+            divToRemove.remove();
+        }
+    }
+</script>
+
+@php
+    $admin = session('admin');
+@endphp
+
+<h1>Welcome, {{ $admin->username }}</h1>
+<!-- Additional content for the customer dashboard goes here -->
+<!-- ... -->
 @endsection
