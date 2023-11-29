@@ -27,7 +27,7 @@ class UsersController extends Controller
 
         // Redirect to a success page or wherever you want
         // return redirect('/customer/registration');
-        return redirect('customer/login')->with('success','Customer registered successfully!');
+        return redirect('customer/login')->with('success', 'Customer registered successfully!');
     }
 
     public function adminregister(Request $request)
@@ -49,7 +49,7 @@ class UsersController extends Controller
         ]);
 
         // Redirect to a success page or wherever you want
-        return redirect('admin/login')->with('success','Admin registered successfully!');
+        return redirect('admin/login')->with('success', 'Admin registered successfully!');
     }
 
     function customerregistration()
@@ -89,12 +89,12 @@ class UsersController extends Controller
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'customer') {
-                return redirect('/customer/dashboard')->with('success','Login successfull!');
+                return redirect('/customer/dashboard')->with('success', 'Login successfull!');
             } elseif ($user->role === 'admin') {
-                echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
+                return redirect()->back()->with('warning', 'Not Allowed!');
             }
         } else {
-            echo "<span style=\"color:red;padding-left:20px\">data not found!</span>";
+            return redirect()->back()->with('warning', 'Data not found!');
         }
 
         // session()->flash('error','data not found!');
@@ -129,12 +129,13 @@ class UsersController extends Controller
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'admin') {
-                return redirect('/admin/dashboard')->with('success','Login successfull!');
+                return redirect('/admin/dashboard')->with('success', 'Login successfull!');
             } elseif ($user->role === 'customer') {
-                echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
+                // echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
+                return redirect()->back()->with('warning', 'Not Allowed!');
             }
         } else {
-            echo "<span style=\"color:red;padding-left:20px\">data not found!</span>";
+            return redirect()->back()->with('warning', 'Data not found!');
         }
 
         // If email or password doesn't match, return to the login view

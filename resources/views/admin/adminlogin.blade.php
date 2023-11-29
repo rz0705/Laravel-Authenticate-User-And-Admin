@@ -6,7 +6,15 @@
     <div id="admin-register-message"
         class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
         role="alert">
-        <span class="font-medium">Admin Register Successfully!!</span><a onclick = "adminregister()" href=""
+        <span class="font-medium">{{ session('success') }}</span><a onclick = "adminregister()" href=""
+            id="dismiss" class="absolute top-0 right-0 px-3 py-1 cursor-pointer pt-2 text-xl">x</a>
+    </div>
+@endif
+
+@if (Session('warning'))
+    <div id="admin-register-message"
+        class="p-4 mb-4 text-sm text-white rounded-lg bg-red-600 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">{{ session('warning') }}</span><a onclick = "adminregister()" href=""
             id="dismiss" class="absolute top-0 right-0 px-3 py-1 cursor-pointer pt-2 text-xl">x</a>
     </div>
 @endif
