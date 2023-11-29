@@ -26,7 +26,8 @@ class UsersController extends Controller
         ]);
 
         // Redirect to a success page or wherever you want
-        return redirect('/customer/registration');
+        // return redirect('/customer/registration');
+        return redirect('customer/login')->with('success','Customer registered successfully!');
     }
 
     public function adminregister(Request $request)
@@ -48,7 +49,7 @@ class UsersController extends Controller
         ]);
 
         // Redirect to a success page or wherever you want
-        return redirect('/admin/registration');
+        return redirect('admin/login')->with('success','Admin registered successfully!');
     }
 
     function customerregistration()
@@ -88,7 +89,7 @@ class UsersController extends Controller
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'customer') {
-                return redirect('/customer/dashboard');
+                return redirect('/customer/dashboard')->with('success','Login successfull!');
             } elseif ($user->role === 'admin') {
                 echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
             }
@@ -128,7 +129,7 @@ class UsersController extends Controller
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
             if ($user->role === 'admin') {
-                return redirect('/admin/dashboard');
+                return redirect('/admin/dashboard')->with('success','Login successfull!');
             } elseif ($user->role === 'customer') {
                 echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
             }
