@@ -65,8 +65,16 @@ class UsersController extends Controller
 
     function customerlogout()
     {
-        // Auth::logout();
+        // dd('customer');
+        // dd(Auth::user());
+        Auth::logout();
+        $user = Auth::user();
         session()->forget('user');
+
+        // if($user->role === 'customer'){
+
+        // }
+
         return redirect('/customer/login')->with('success', 'Logout successful!');
     }
 
@@ -106,6 +114,7 @@ class UsersController extends Controller
 
     function adminlogout()
     {
+        // dd('admin');
         Auth::logout();
         session()->forget('admin');
         return redirect('/admin/login')->with('success', 'Logout successful!');
