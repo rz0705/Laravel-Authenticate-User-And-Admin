@@ -27,13 +27,11 @@ class UsersController extends Controller
         ]);
 
         // Redirect to a success page or wherever you want
-        // return redirect('/customer/registration');
         return redirect('customer/login')->with('success', 'Customer registered successfully!');
     }
 
     public function adminregister(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'adminname' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -65,15 +63,8 @@ class UsersController extends Controller
 
     function customerlogout()
     {
-        // dd('customer');
-        // dd(Auth::user());
         Auth::logout();
-        $user = Auth::user();
         session()->forget('user');
-
-        // if($user->role === 'customer'){
-
-        // }
 
         return redirect('/customer/login')->with('success', 'Logout successful!');
     }
@@ -114,7 +105,6 @@ class UsersController extends Controller
 
     function adminlogout()
     {
-        // dd('admin');
         Auth::logout();
         session()->forget('admin');
         return redirect('/admin/login')->with('success', 'Logout successful!');
@@ -131,7 +121,6 @@ class UsersController extends Controller
         $password = $request->password;
 
         $user = User::where("email", $email)->first();
-        // dd($user);
 
         if ($user && Hash::check($password, $user->password)) {
             // Check the user's role
@@ -140,7 +129,6 @@ class UsersController extends Controller
                 $request->session()->put('admin', $user);
                 return redirect('/admin/dashboard')->with('success', 'Login successfull!');
             } elseif ($user->role === 'customer') {
-                // echo "<span style=\"color:red;padding-left:20px\">not allowed!</span>";
                 return redirect()->back()->with('warning', 'Not Allowed!');
             }
         } else {
@@ -149,7 +137,6 @@ class UsersController extends Controller
 
         // If email or password doesn't match, return to the login view
         return view('admin.adminlogin');
-        // return redirect()->back()->withInput();
     }
 
     function customerdashboard()
