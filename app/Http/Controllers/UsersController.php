@@ -127,7 +127,7 @@ class UsersController extends Controller
             if ($user->role === 'admin') {
                 // Store user information in the session
                 $request->session()->put('admin', $user);
-                return redirect('/admin/dashboard')->with('success', 'Login successfull!');
+                return redirect('/admin/dashboard')->with('success', 'Login successful!');
             } elseif ($user->role === 'customer') {
                 return redirect()->back()->with('warning', 'Not Allowed!');
             }
