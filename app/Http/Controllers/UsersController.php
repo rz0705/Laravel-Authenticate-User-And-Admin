@@ -144,7 +144,7 @@ class UsersController extends Controller
                 return redirect()->back()->with('warning', 'Not Allowed!');
             }
         } else {
-            return redirect()->back()->with('warning', 'Data not found!');
+            return redirect()->back()->with('warning', 'Invalid credentials!');
         }
 
         // If email or password doesn't match, return to the login view
